@@ -1,7 +1,8 @@
 
 import * as discord from 'discord.js'
+import { weather, format } from './format'
 import { config } from 'dotenv';
-import { get_metar, get_taf } from './metar'
+import { get_metar, get_taf } from './metar';
 
 config();
 
@@ -30,55 +31,46 @@ async function handle_message(message: discord.Message) {
     if(message.content.indexOf(prefix) !== 0) return;
     
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const code  = args.shift();
+    const raw = args.shift()
+    const code  = validate(raw);
 
     if(code === "ping") {
-        const m = await message.channel.send("Ping?");
+        const m = await message.channel.send("Ping");
         m.edit(`Pong: Latency is ${m.createdTimestamp - message.createdTimestamp}ms.`);
     }
+    
+    let result = ''
 
     if (code) {
-        await message.channel.send(await write_weather(code));
+        try {
+            result = await format({
+                code: code,
+                metar: await get_metar(code),
+                taf: await get_taf(code),   
+            } as weather)
+        } catch (err) {
+            console.log(err)
+        }
+    } else {
+        result = `'${raw}' is not a valid airport identifier.`
     }
+    
+    await message.channel.send(result);
 }
 
-async function write_weather(code: string): Promise<string> {
+function validate(code: string | undefined): string {
 
-    try {
-        
-        const metar = await get_metar(code)
-        const taf = await get_taf(code)
+    if (!code) {
+        return ''
+    }
 
-        const time = new Date(metar.time.dt.substring(0, metar.time.dt.length - 1))
-        const gusts = metar.wind_gust ? metar.wind_gust : 'no gusts'
+    if (code.length === 4 && code[0] === 'K') {
+        return code
+    }
 
-        return `
-
-            ${metar.sanitized}
-
-            Time: ${time.toUTCString()}
-            Altimeter: ${metar.altimeter.value} inHg
-            Clouds: ${metar.clouds[0].type} at ${metar.clouds[0].altitude}00
-            Visibility: ${metar.visibility.value} SM
-            Wind: ${metar.wind_direction.value}&deg; at ${metar.wind_speed.value} kts ${gusts}
-            Dew: ${metar.dewpoint.value} &deg;C
-
-            TAF
-
-            ${format_taf(taf)}
-        `
-    } catch (err) {
-        console.log(err)
+    if (code.length === 3 ) {
+        return `K${code}`
     }
 
     return ''
-}
-
-function format_taf(taf: any) {
-    let s = '';
-    
-    taf.forecast.forEach((f) => {
-        s += `\n${f.summary}`
-    });
-    return s
 }
