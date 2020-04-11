@@ -1,0 +1,38 @@
+{ meta: { timestamp: '2020-04-06T08:29:00.634727+00:00Z' },
+  altimeter:
+   { repr: 'A2988',
+     value: 29.88,
+     spoken: 'two nine point eight eight' },
+  clouds:
+   [ { repr: 'OVC047',
+       type: 'OVC',
+       altitude: 47,
+       modifier: null,
+       direction: null } ],
+  flight_rules: 'VFR',
+  other: [],
+  sanitized:
+   'KSMO 060751Z 16006KT 10SM OVC047 13/11 A2988 RMK AO2 SLP116 T01280111 401670122',
+  visibility: { repr: '10', value: 10, spoken: 'one zero' },
+  wind_direction: { repr: '160', value: 160, spoken: 'one six zero' },
+  wind_gust: null,
+  wind_speed: { repr: '06', value: 6, spoken: 'six' },
+  wx_codes: [],
+  raw:
+   'KSMO 060751Z AUTO 16006KT 10SM OVC047 13/11 A2988 RMK AO2 SLP116 T01280111 401670122',
+  station: 'KSMO',
+  time: { repr: '060751Z', dt: '2020-04-06T07:51:00+00:00Z' },
+  remarks: 'RMK AO2 SLP116 T01280111 401670122',
+  dewpoint: { repr: '11', value: 11, spoken: 'one one' },
+  remarks_info:
+   { dewpoint_decimal: { repr: '11.1', value: 11.1, spoken: 'one one point one' },
+     temperature_decimal: { repr: '12.8', value: 12.8, spoken: 'one two point eight' } },
+  runway_visibility: [],
+  temperature: { repr: '13', value: 13, spoken: 'one three' },
+  wind_variable_direction: [],
+  units:
+   { altimeter: 'inHg',
+     altitude: 'ft',
+     temperature: 'C',
+     visibility: 'sm',
+     wind_speed: 'kt' } }
