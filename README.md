@@ -8,3 +8,7 @@ The bot doesn't do anything unless someone sends a message with the correct pref
 `wx <airport code>`
 
 The airport code can omit the prefixed K or it can be included. For example, you can say `wx KSMO` or `wx SMO`.
+
+And this is what the response would look like.
+
+![KSMO Example](metar_example.png "KSMO Example")
