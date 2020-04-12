@@ -1,6 +1,6 @@
 # Metar
 
-Metar is a Discrod bot that can provide basic Metar and TAF reports for airports. The data is sourced from https://avwx.rest/ which is mostly parsed data from avaiationweather.com. 
+Metar is a Discord bot that can provide basic Metar and TAF reports for airports. The data is sourced from https://avwx.rest/ which is mostly parsed data from https://aviationweather.gov/. 
 
 ### Usage
 The bot doesn't do anything unless someone sends a message with the correct prefix using the following format.
